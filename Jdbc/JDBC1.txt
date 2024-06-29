@@ -1,0 +1,49 @@
+Java Jdbc 
+-> JDBC stands for Java Database Connectivity
+-> JDBC is a Java API to connect and execute the query with the database
+-> It is a specification from Sun Microsystems that provides a standard abstraction(API or Protocol) for Java applications to communicate with various databases.
+-> Defination: JDBC is an API(Application programming interface) used in Java programming to interact with databases.
+-> The classes and interfaces of JDBC allow the application to send requests made by users to the specified database.
+-> The current version of JDBC is JDBC 4.3.
+
+->Purpose/why? :-The main purpose of JDBC is to provide a standard method for Java applications to connect to a database, execute SQL queries, and retrieve the results. 
+  ->Database connectivity: provide standard interface to connect various databases.
+  ->Executing Sql Statement:Allows java program to execute sql queries
+  ->Database Independent:JDBC offers a uniform interface to interact with different types of databases, making the application database-independent.
+  ->Data Manipulation: Through JDBC, applications can perform CRUD
+  ->Transaction Management:DBC supports transactions, allowing developers to commit or rollback multiple SQL operations as a single unit of work
+
+
+Step for Jdbc 
+-> import the package [java.sql.*]
+->load and Register the driver 
+-> Establish the connection
+-> Create the statement 
+->Execute the Query
+->Process Result
+
+
+DriverManage->This class manages the JDBC drivers. You need to register your drivers to this.
+It provides methods such as registerDriver() and getConnection().
+
+Statement->This interface represents a static SQL statement. Using the Statement object and its methods, you can execute an SQL statement and get the results of it.
+It provides methods such as execute(), executeBatch(), executeUpdate() etc. To execute the statements.
+
+
+PreparedStatement->This represents a precompiled SQL statement. An SQL statement is compiled and stored in a prepared statement and you can later execute this multiple times. You can get an object of this interface using the method of the Connection interface named prepareStatement(). This provides methods such as executeQuery(), executeUpdate(), and execute() to execute the prepared statements and getXXX(), setXXX() (where XXX is the datatypes such as long int float etc..) methods to set and get the values of the bind variables of the prepared statement.
+
+
+forname()->method is use to load driver
+
+
+class.forname()->to load the class which execute the static block
+
+how you load a driver??
+->we use something called as 
+1.a: drivermanager.registerDriver(new com.mysql.jdbc.Driver);
+1.b: Rather than this we can use Class.forname(" com.mysql.jdbc.Driver");
+Both 1.a and 1.b are same ,but how its same??->when we check the driver class there is static block do same we are trying to do
+->conculsion:class.forname() is not the method which register driver  it is actually static block  of driver class which load driver or which register driver.
+
+
+

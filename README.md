@@ -73,7 +73,7 @@ To set up the development environment for this repository, follow these steps:
 -Install Node.js and npm for front-end development
 -Set up a database (e.g., MySQL, PostgreSQL)
 
-##Usage
+## Usage
 Each module in this repository is structured to include:
 
 A README file explaining the concepts covered
@@ -81,14 +81,14 @@ Code examples and exercises
 Project folders containing fully functional applications
 To run a specific project or module, navigate to its directory and follow the instructions provided in its README file.
 
-##Resources
-##Here are some useful resources that I found helpful during my learning journey:
+## Resources
+## Here are some useful resources that I found helpful during my learning journey:
 -Official Java Documentation
 -Spring Framework Documentation
 -Hibernate Documentation
 -JUnit Documentation
 
-#Contributing
+## Contributing
 -I welcome contributions to enhance this learning repository. If you have any suggestions, improvements, or new learning modules to add, please feel free to submit a pull request or open an issue.
 
 -Thank you for visiting my Java Full Stack Development repository. I hope you find the resources and projects helpful. Happy coding! make this correct file readme.md

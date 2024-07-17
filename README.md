@@ -81,8 +81,8 @@ Code examples and exercises
 Project folders containing fully functional applications
 To run a specific project or module, navigate to its directory and follow the instructions provided in its README file.
 
-#4444##Resources
-#Here are some useful resources that I found helpful during my learning journey:
+##Resources
+##Here are some useful resources that I found helpful during my learning journey:
 -Official Java Documentation
 -Spring Framework Documentation
 -Hibernate Documentation

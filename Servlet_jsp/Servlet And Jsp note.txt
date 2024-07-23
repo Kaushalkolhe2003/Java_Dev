@@ -1,0 +1,170 @@
+Servlet And Jsp
+
+#Client send request to server expecting a page (static/dynamic page)
+->static page already made before
+->Dynamic page made at run time
+
+#client send request to server for dynamic page but server don't have it  so server need to build that page.
+->Then the request goes to helper application[web container(tomcat,glassfish ,IBMweb sphere)]
+in this web container we have servelet[ servelet is basically a java file which take request from the client on the internet
+and process request and provide response to client in html page form.
+->request from client(abc.html) -->Tomcat(don't have this abc.html page) that request goes to servlet
+
+-> servelet have java name ex: when u create java class like adding 2 number so I will have servelet name as addservlet
+that is -> 
+public class Addservlet extends HttpServlet{
+  protected void doget(HttpServletRequest req,HttpServletResponse res){
+        int i= Integer.parseInt(req.getParameter("t1"));
+        int j= Integer.parseInt(req.getParameter("t2"));
+        int k=i+j; 
+        PrintWriter out = res.getWriter();
+         out.print(k);
+     }
+} 
+when request for abc.html the page which is to be called is your servlet
+how we can do that?
+
+->Inside container we have special file Deployment descriptor(web.xml) in which u mention for which  request which servlet should be called.
+
+->In tomcat there may be 1	nfigure in a file called deployment descriptor and the file name is web.xml
+
+example of web.xml
+<web-app>
+<servlet>
+<servlet-name>AddServlet</servlet-name>
+<servlet-class>AddServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>AddServlet</servlet-name>
+<url-pattern>/abc.html</url-pattern>
+</servlet-mapping>
+</web-app>
+
+->in this we have 2 tag servlet tag and servlet mapping tag.
+->in  servlet tag we have to mention class name and in servlet mapping tag we have to mention url pattern means for this url we have to called that particular servlet.
+
+how we get servlet?
+->when we have to create servlet it normal class  which extends httpservlet ,this class provide all feature required.
+
+Response send to client ->it can be html format ,Jason format or normal string [the dynamic page response goes from client to server in response object]
+
+-> we can avoid web.xml servlet 3.0 new feauture which is called as Annotations.
+
+
+->RequestDispatcher:
+->The RequestDispatcher is an Interface comes under package javax.servlet.
+->we can get an object in servlet after receving the request.
+->Using requestDispatcher object we can send request to other resource which includes (servlet,jsp,html file).
+
+
+->How to Create an Object of RequestDispatcher?
+There are three ways to get an object:
+
+1. RequestDispatcher requestDispatcher=ServletContext.getRequestDispatcher(String path);
+
+Description:
+
+public interface ServletContext. Defines a set of methods that a servlet uses to communicate with its servlet container.
+path is a string specifying the pathname to the resource(servlet, HTML file, or JSP file).
+
+2. RequestDispatcher requestDispatcher=ServletContext.getNamedDispatcher(String name);
+Description:
+
+public interface ServletContext. Defines a set of methods that a servlet uses to communicate with its servlet container.
+name is a string specifying the name of a servlet to wrap.
+
+3. RequestDispatcher requestDispatcher=request.getRequestDispatcher(“String path”);
+
+Description:
+
+request is the HttpServletRequest type object.
+path is a string specifying the pathname to the resource. If it is relative, it must be relative to the current servlet.
+
+
+
+->Httpservletrequest  and httpservletresponse are both interface 
+
+#RequestDispatcher and sendRedirect
+
+->session management : 3 topics ->session,cookies,URL rewriting 
+
+->in url rewriting changing url .
+
+->http session Cookie:
+->In the context of Java servlets, HttpSession represents a way to track user sessions across multiple HTTP requests. It's a server-side mechanism that allows storing information about a user across multiple pages of a web application until the session is terminated either programmatically or due to inactivity
+
+#to maintain data through out the session
+Session:when ever you go to web application it will try to main session for you that will be done by tomcat .once you put your data in session you can use the value in next servlet 
+
+#Also we can use cookies for it 
+cookie: whenever you send request to server and server will send you response , in that response object which coming from server will have a cookie and then when you send the request to sq server you can send same cookie again
+->cookie is coming to client side and client is sending same cookie to server
+
+
+ServletConfig and ServletContext:
+-> we use this 2 things to get inital value for the servlet
+->if we have multipe servlet sharing same value go with servletcontext 
+->if we want some specific inital value in particular servlet go with servletconfig
+
+
+#Servlet annotation Configuration..
+how we can configure servletn with the help of annotation
+->@WebServlet(path) use instead of using xml file.
+
+
+
+
+
+
+
+
+# There are 4 tags in jsp Scriplet,Declaration ,Directive,Expression.
+
+
+
+JSP Directive:
+@page:for import package
+@include:we can include other jsp page to current jsp page using same tag.
+@taglib:The JSP taglib directive is used to define a tag library that defines many tags. We use the TLD (Tag Library Descriptor) file to define the tags. 
+
+
+JSP Implicit Objects:
+There are 9 jsp implicit objects. These objects are created by the web container that are available to all the jsp pages.
+ 
+
+exception in jsp :
+we can normaly handling error in jsp page using try catch block
+->as to make the error handling code different with main jsp 
+-> we can create a new jsp page which handle the error 
+->we can use errorpage directive in page tag with specific file make of error file
+->we can print whats the specific error using directive isErrorPage=true/false.
+->and print exception
+
+
+Mvc using Servlet and jsp
+->mvc stand for Model View Controller it is a design pattern that seprates the business logic presentation logic and data
+-> Controller act as interface between view and model it intercepts all the incoming request
+->Model: represent the state of the application ie data it can also havw business logic
+->View represent UI...
+ 
+->Whenever client send a request to the controller controller will call view by sending model object (it is object which has data)
+->in java technology controller is created by servlet
+->view is your jsp
+-model is also pojo plain old java object 
+
+# Where to write business logic  ?
+->if you want to do any processing it should be done on the controller never write business logic on the view (jsp)
+
+->controller is just to accepting request and sending the response 
+
+JSTL Tutorial EL(Expression language) :
+->Jsp Standard Tag Libaray
+
+
+Filters in JSTL:
+A filter is an object that is invoked at the preprocessing and postprocessing of a request.
+
+It is mainly used to perform filtering tasks such as conversion, logging, compression, encryption and decryption, input validation etc.
+The servlet filter is pluggable, i.e. its entry is defined in the web.xml file, if we remove the entry of filter from the web.xml file, filter will be removed automatically and we don't need to change the servlet.
+
+

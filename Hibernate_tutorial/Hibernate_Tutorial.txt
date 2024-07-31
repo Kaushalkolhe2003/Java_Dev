@@ -1,0 +1,172 @@
+# Hibernate Tutorial
+
+Hibernate is one of the best orm framework in java here orm stands for object Relational Mapping 
+
+Why do we use Hibernate?
+->We use Hibernate because it simplifies database interactions in Java applications through its Object-Relational Mapping (ORM) capabilities.
+-> Hibernate maps Java objects to database tables, allowing us to work with the database using Java objects rather than SQL queries, which improves productivity and code readability. 
+->It also automatically generates SQL queries, reducing the risk of errors and making the application database-agnostic, which means we can switch databases with minimal code changes.
+
+# ORM :
+-> We are creating relationship between object oriented programing concept and relational database system and that is possible with the help of ORM
+->To implement ORM concept we have different tools and one of the tool we use is hibernate (other tools we have is ibatis ,JPA ,Toplink)
+
+->Using Hibernate we can store your objects into database directly with the help of save method .
+
+So how to we use save method?
+->To use save method we need to create object of session (like if session object is s we can use like :- s.save(obj1) ) Session we can create using SessionFactory ,In SessionFactory we need to provide all the configuration of like we use to provide in jdbc like driver name , URl and all.
+
+
+How to use Embeddable Object?
+->An embeddable object in Hibernate represents a reusable component that encapsulates a group of related fields and is part of a parent entity. Unlike a full-fledged entity, an embeddable object does not have its own identity or lifecycle; instead, it is embedded within an entity. This allows for better modularity and code reuse.
+
+Example Scenario:
+Consider the scenario where you have a Student_info entity and each student will have parent name and contact details .Instead of including all Parents data 
+fields directly in the student_info you can encapsulated them in an embeddable 'parent' object.
+
+Characteristics of Embeddable Objects
+No Identity: Embeddable objects do not have their own primary key or identifier.
+Part of the Parent Entity: They are always part of a parent entity and cannot exist independently.
+Reusability: Embeddable objects can be reused across different entities, promoting code reuse.
+Single Table Representation: Fields of the embeddable object are mapped to columns in the table of the parent entity.
+
+#Mapping relation theory
+
+Unidirectional Relationships
+In a unidirectional relationship, only one entity is aware of the relationship. This means that only one entity has a reference to the other entity.
+
+Bidirectional Relationships
+In a bidirectional relationship, both entities are aware of the relationship and can navigate to each other.
+
+Hibernate Cache
+->Whenever we want to acess the same data multiple time instead of hitting your database everytime  you can use cache
+
+->Hibernate employs a two-level caching mechanism to enhance performance by reducing the number of database hits required to fetch data
+
+First level cache  data stored for first session 
+
+Second-Level Cache
+Scope: Per SessionFactory (application-wide).
+Lifecycle: Exists across multiple sessions and transactions. It is optional and must be explicitly enabled and configured.
+Purpose: Reduces the number of database hits across multiple sessions by caching objects and their states at the SessionFactory level. Useful for read-heavy applications or frequently accessed data.
+Configuration: Requires a caching provider (such as EHCache, Infinispan, etc.) and must be explicitly configured in the Hibernate configuration files.
+
+HQL theory 
+->Hibernate Query Language (HQL) is same as SQL (Structured Query Language) but it doesn't depends on the table of the database. Instead of table name, we use class name in HQL. So it is database independent query language.
+->if we want specific columns in a rows we have to use Object class creating array of object class
+->Query Interface
+It is an object oriented representation of Hibernate Query. The object of Query can be obtained by calling the createQuery() method Session interface.
+
+The query interface provides many methods. There is given commonly used methods:
+
+public int executeUpdate() is used to execute the update or delete query.
+public List list() returns the result of the ralation as a list.
+public Query setFirstResult(int rowno) specifies the row number from where record will be retrieved.
+public Query setMaxResult(int rowno) specifies the no. of records to be retrieved from the relation (table).
+public Query setParameter(int position, Object value) it sets the value to the JDBC style query parameter.
+public Query setParameter(String name, Object value) it sets the value to a named query parameter.
+
+
+
+Hibernate Object states /Persistence Life Cycle
+-> when you create a object in hibernate it becomes in transient state and when you tried to do modification or destroy the object we will lose the data
+->if u want that data u should persist it
+we have 3 stage transient->persistent->detaced stage
+In Hibernate, the persistence lifecycle of an entity refers to the various states an entity can go through during its lifecycle. Here's a basic explanation of each state in the lifecycle: transient, persistent, detached, and removed.
+
+1. Transient
+Definition: An entity in the transient state is a new instance that is not yet associated with any Hibernate Session or database.
+Characteristics:
+It exists only in the memory of the JVM.
+It has not been persisted to the database.
+Changes to a transient entity are not tracked by Hibernate.
+Example:
+
+Person person = new Person(); // Transient state
+person.setName("John Doe");
+
+2. Persistent
+Definition: An entity becomes persistent when it is associated with a Hibernate Session. At this point, Hibernate is aware of the entity and manages its state.
+Characteristics:
+The entity is saved in the database, and Hibernate tracks its state.
+Changes to the persistent entity are synchronized with the database.
+It can be retrieved, updated, or deleted through the Session.
+Example:
+Session session = sessionFactory.openSession();
+session.beginTransaction();
+
+Person person = new Person();
+person.setName("John Doe");
+session.save(person); // Now the entity is persistent
+
+session.getTransaction().commit();
+session.close();
+
+3. Detached
+Definition: An entity is in the detached state when it was previously associated with a Session but is no longer associated with any active Session. It is no longer managed by Hibernate.
+Characteristics:
+Changes to a detached entity are not automatically synchronized with the database.
+It can be reattached to a new Session to update the database or to make it persistent again.
+Example:
+Session session = sessionFactory.openSession();
+session.beginTransaction();
+
+Person person = new Person();
+person.setName("John Doe");
+session.save(person);
+session.getTransaction().commit();
+session.close(); // The entity is now detached
+
+// Person entity is detached here
+person.setName("Jane Doe");
+
+
+4. Removed
+Definition: An entity is in the removed state when it is marked for deletion from the database. This state is managed by Hibernate and means that the entity will be removed from the database during the next transaction commit.
+Characteristics:
+The entity is flagged for removal but not yet deleted from the database until the transaction is committed.
+Once removed, the entity will be deleted from the database during the transaction commit.
+Example:
+Session session = sessionFactory.openSession();
+session.beginTransaction();
+
+Person person = session.get(Person.class, 1); // Load a persistent entity
+session.delete(person); // Mark the entity for removal
+
+session.getTransaction().commit();
+session.close();
+
+Summary
+Transient: The entity is not yet persisted and is only in memory.
+Persistent: The entity is associated with a Session, and changes are tracked and synchronized with the database.
+Detached: The entity was once persistent but is no longer associated with an active Session.
+Removed: The entity is marked for deletion and will be removed from the database upon transaction commit.
+Each of these states represents a different stage in the lifecycle of an entity as it interacts with the Hibernate ORM framework. Understanding these states helps manage entity persistence and transitions effectively.
+
+
+In Hibernate, both get() and load() methods are used to retrieve data from the database, but they differ in several ways:
+
+get() Method
+Immediate Retrieval:
+
+The get() method immediately retrieves the object from the database. It performs a database hit as soon as it is called.
+Returns null if not found:
+
+If the object with the specified identifier does not exist, the get() method returns null.
+Use Case:
+
+Use get() when you are not sure whether the object exists in the database and want to handle the case where it might not exist.
+load() Method
+Lazy Retrieval:
+
+The load() method returns a proxy object without hitting the database immediately. The actual database query is executed only when a method on the returned object is called that requires the object's state to be fully initialized (e.g., accessing a property).
+Throws ObjectNotFoundException if not found:
+
+If the object with the specified identifier does not exist, the load() method throws an ObjectNotFoundException when the object is accessed.
+Use Case:
+
+Use load() when you are sure that the object exists in the database and want to delay the database hit until the object is actually used. This is useful for performance optimization in certain scenarios.
+
+
+What is JPA?
+->JPA is mostly use to shift from one technology to another like we want to shift from hibernate to toplink or other tools

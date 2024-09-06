@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Define the Employee bean -->
+    <bean id="employeeXM" class="com.Emp.Spring2.Employee" >
+    
+        <!-- Define the properties of the Employee bean if any -->
+        
+        <constructor-arg value="34000"> </constructor-arg>
+        <property name="Intern" ref="Interns"></property>
+       
+    </bean>
+    
+    <bean id="Interns" class="com.Emp.Spring2.Interns"></bean>
+
+</beans>

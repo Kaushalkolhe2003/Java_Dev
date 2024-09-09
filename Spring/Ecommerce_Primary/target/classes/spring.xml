@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   
+    <!-- Define the PaymentService implementations -->
+    <bean id="creditCardPaymentService" class="com.Payment.Ecommerce_Primary.CreditCardPaymentService"  />
+    
+    <bean id="payPalPaymentService" class="com.Payment.Ecommerce_Primary.PayPalPaymentService" />
+
+    <!-- Define the OrderService bean with a reference to the default PaymentService bean -->
+    <bean id="orderService" class="com.Payment.Ecommerce_Primary.OrderService">
+        <constructor-arg ref="payPalPaymentService" />
+    </bean>
+    
+    
+    
+    
+</beans>

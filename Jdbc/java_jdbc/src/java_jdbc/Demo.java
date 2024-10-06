@@ -20,6 +20,7 @@ public class Demo {
 	public static void main(String[] args) {
 		
 		try{
+			//query 
 			String query = "select * from Emp ";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/IT","root","Kolhe2003@");

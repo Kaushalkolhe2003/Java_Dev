@@ -6,6 +6,7 @@ class Array {
 		int num[]= {12,3,4,5,34,2};
 		
 		int num1[] = new int[5];
+		//looping 
 		
 		for(int i=0;i<6;i++) {
 			System.out.println(num[i]);

@@ -14,7 +14,7 @@ Java Jdbc
   ->Transaction Management:DBC supports transactions, allowing developers to commit or rollback multiple SQL operations as a single unit of work
 
 
-Step for Jdbc 
+Step for JdbC
 -> import the package [java.sql.*]
 ->load and Register the driver 
 -> Establish the connection
